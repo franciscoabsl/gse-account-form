@@ -332,6 +332,23 @@ public interface AccountLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Account updateAccount(Account account);
 
+	public Account updateAccount(
+			long accountId, String firstName, String lastName,
+			String emailAddress, String _userName, String gender, Date birthday,
+			String password1, String confirmPassword, String homePhone,
+			String mobilePhone, String address1, String address2, String city,
+			String state, String zipCode, String securityQuestion,
+			String securityAnswer)
+		throws PortalException;
+
+	public void validation(
+			String firstName, String lastName, String emailAddress,
+			String _userName, String gender, Date birthday, String password1,
+			String confirmPassword, String homePhone, String mobilePhone,
+			String address1, String address2, String city, String state,
+			String zipCode, String securityQuestion, String securityAnswer)
+		throws PortalException;
+
 	public void validation(
 			String firstName, String lastName, String emailAddress,
 			String _userName, String gender, Date birthday, String password1,
