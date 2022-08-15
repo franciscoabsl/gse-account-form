@@ -89,7 +89,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		return super.addAccount(account);
 	}
-
+	@Override
 	public Account updateAccount(long accountId, String firstName, String lastName, String emailAddress, String _userName,
 							  String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 							  String mobilePhone, String address1, String address2, String city, String state, String zipCode,
@@ -244,6 +244,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		}
 
 	}
+	@Override
 	public void validation(String firstName, String lastName, String emailAddress, String _userName,
 						   String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 						   String mobilePhone, String address1, String address2, String city, String state, String zipCode,

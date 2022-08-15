@@ -35,7 +35,7 @@ import java.util.Date;
 	service = AopService.class
 )
 public class AccountServiceImpl extends AccountServiceBaseImpl {
-
+	@Override
 	public Account addAccount(long groupId, String firstName, String lastName, String emailAddress, String _userName,
 							  String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 							  String mobilePhone, String address1, String address2, String city, String state, String zipCode,
@@ -45,5 +45,15 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 				gender, birthday, password1, confirmPassword, homePhone,
 				mobilePhone, address1, address2, city, state, zipCode,
 				securityQuestion, securityAnswer, termsOfUse, serviceContext);
+	}
+	@Override
+	public Account updateAccount(long accountId, String firstName, String lastName, String emailAddress, String _userName,
+								 String gender, Date birthday, String password1, String confirmPassword, String homePhone,
+								 String mobilePhone, String address1, String address2, String city, String state, String zipCode,
+								 String securityQuestion, String securityAnswer) throws PortalException {
+
+		return accountLocalService.updateAccount(accountId, firstName, lastName, emailAddress, _userName,
+				gender, birthday, password1, confirmPassword, homePhone, mobilePhone, address1, address2, city, state,
+				zipCode, securityQuestion, securityAnswer);
 	}
 }
