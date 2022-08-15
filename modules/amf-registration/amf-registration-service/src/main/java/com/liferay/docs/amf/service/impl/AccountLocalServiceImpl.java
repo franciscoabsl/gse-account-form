@@ -126,7 +126,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 	@Override
 	public List<Account> getAccountsByGroupId(long groupId) {
-		return accountPersistence.findByfindByGroupId(groupId);
+		return accountPersistence.findByGroupId(groupId);
 	}
 
 	@Override
@@ -257,6 +257,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		}
 		if(!termsOfUse) {
 			throw new TermsOfUseException("You must accept the Terms of Use.");
+		}
+
+		if(!Validator.isNull(accountPersistence.findByUserName(_userName))) {
+
 		}
 
 	}
