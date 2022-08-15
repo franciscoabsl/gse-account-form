@@ -51,10 +51,10 @@
 
 		<!-- Finder methods -->
 
-		<finder name="findByGroupId" return-type="Collection">
+		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-		<finder name="findByUserName" return-type="Account">
+		<finder name="UserName" return-type="Account">
 			<finder-column name="_userName" />
 		</finder>
 
