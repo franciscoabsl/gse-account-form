@@ -200,10 +200,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		//TODO - birthday (must be at least 13 to register)
 		//TODO - state (must use Liferay's State code)
 
-		if(password1 != confirmPassword) {
+		if(!password1.equals(confirmPassword)) {
 			throw new PasswordException("Passwords must match.");
 		}
-		if(termsOfUse != true) {
+		if(!termsOfUse) {
 			throw new TermsOfUseException("You must accept the Terms of Use.");
 		}
 
