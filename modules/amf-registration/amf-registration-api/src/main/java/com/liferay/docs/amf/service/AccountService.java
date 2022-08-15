@@ -14,6 +14,7 @@
 
 package com.liferay.docs.amf.service;
 
+import com.liferay.docs.amf.exception.NoSuchAccountException;
 import com.liferay.docs.amf.model.Account;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -22,9 +23,11 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -60,6 +63,15 @@ public interface AccountService extends BaseService {
 			String securityAnswer, boolean termsOfUse,
 			ServiceContext serviceContext)
 		throws PortalException;
+
+	public Account deleteAccountById(long accountId)
+		throws NoSuchAccountException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Account getAccountById(long accountId) throws NoSuchAccountException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Account> getAccountsByGroupId(long groupId);
 
 	/**
 	 * Returns the OSGi service identifier.

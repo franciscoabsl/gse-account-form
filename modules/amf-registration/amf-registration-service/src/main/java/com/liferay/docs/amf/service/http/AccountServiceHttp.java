@@ -149,6 +149,118 @@ public class AccountServiceHttp {
 		}
 	}
 
+	public static java.util.List<com.liferay.docs.amf.model.Account>
+		getAccountsByGroupId(HttpPrincipal httpPrincipal, long groupId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "getAccountsByGroupId",
+				_getAccountsByGroupIdParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.liferay.docs.amf.model.Account>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.docs.amf.model.Account getAccountById(
+			HttpPrincipal httpPrincipal, long accountId)
+		throws com.liferay.docs.amf.exception.NoSuchAccountException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "getAccountById",
+				_getAccountByIdParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.docs.amf.exception.NoSuchAccountException) {
+
+					throw (com.liferay.docs.amf.exception.
+						NoSuchAccountException)exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.docs.amf.model.Account)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.docs.amf.model.Account deleteAccountById(
+			HttpPrincipal httpPrincipal, long accountId)
+		throws com.liferay.docs.amf.exception.NoSuchAccountException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "deleteAccountById",
+				_deleteAccountByIdParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.docs.amf.exception.NoSuchAccountException) {
+
+					throw (com.liferay.docs.amf.exception.
+						NoSuchAccountException)exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.docs.amf.model.Account)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(AccountServiceHttp.class);
 
 	private static final Class<?>[] _addAccountParameterTypes0 = new Class[] {
@@ -165,5 +277,11 @@ public class AccountServiceHttp {
 			String.class, String.class, String.class, String.class,
 			String.class, String.class, String.class, String.class, String.class
 		};
+	private static final Class<?>[] _getAccountsByGroupIdParameterTypes2 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getAccountByIdParameterTypes3 =
+		new Class[] {long.class};
+	private static final Class<?>[] _deleteAccountByIdParameterTypes4 =
+		new Class[] {long.class};
 
 }

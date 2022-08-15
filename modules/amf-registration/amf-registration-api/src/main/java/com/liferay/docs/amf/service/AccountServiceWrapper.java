@@ -52,6 +52,27 @@ public class AccountServiceWrapper
 			securityAnswer, termsOfUse, serviceContext);
 	}
 
+	@Override
+	public com.liferay.docs.amf.model.Account deleteAccountById(long accountId)
+		throws com.liferay.docs.amf.exception.NoSuchAccountException {
+
+		return _accountService.deleteAccountById(accountId);
+	}
+
+	@Override
+	public com.liferay.docs.amf.model.Account getAccountById(long accountId)
+		throws com.liferay.docs.amf.exception.NoSuchAccountException {
+
+		return _accountService.getAccountById(accountId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.docs.amf.model.Account>
+		getAccountsByGroupId(long groupId) {
+
+		return _accountService.getAccountsByGroupId(groupId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

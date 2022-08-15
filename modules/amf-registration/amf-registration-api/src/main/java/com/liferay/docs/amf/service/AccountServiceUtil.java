@@ -17,6 +17,8 @@ package com.liferay.docs.amf.service;
 import com.liferay.docs.amf.model.Account;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 /**
  * Provides the remote service utility for Account. This utility wraps
  * <code>com.liferay.docs.amf.service.impl.AccountServiceImpl</code> and is an
@@ -51,6 +53,22 @@ public class AccountServiceUtil {
 			birthday, password1, confirmPassword, homePhone, mobilePhone,
 			address1, address2, city, state, zipCode, securityQuestion,
 			securityAnswer, termsOfUse, serviceContext);
+	}
+
+	public static Account deleteAccountById(long accountId)
+		throws com.liferay.docs.amf.exception.NoSuchAccountException {
+
+		return getService().deleteAccountById(accountId);
+	}
+
+	public static Account getAccountById(long accountId)
+		throws com.liferay.docs.amf.exception.NoSuchAccountException {
+
+		return getService().getAccountById(accountId);
+	}
+
+	public static List<Account> getAccountsByGroupId(long groupId) {
+		return getService().getAccountsByGroupId(groupId);
 	}
 
 	/**
