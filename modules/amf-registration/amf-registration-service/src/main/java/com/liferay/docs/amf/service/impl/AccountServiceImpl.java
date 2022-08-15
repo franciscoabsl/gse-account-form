@@ -14,10 +14,15 @@
 
 package com.liferay.docs.amf.service.impl;
 
+import com.liferay.docs.amf.model.Account;
 import com.liferay.docs.amf.service.base.AccountServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
 import org.osgi.service.component.annotations.Component;
+
+import java.util.Date;
 
 /**
  * @author Brian Wing Shun Chan
@@ -30,4 +35,15 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class AccountServiceImpl extends AccountServiceBaseImpl {
+
+	public Account addAccount(long groupId, String firstName, String lastName, String emailAddress, String _userName,
+							  String gender, Date birthday, String password1, String confirmPassword, String homePhone,
+							  String mobilePhone, String address1, String address2, String city, String state, String zipCode,
+							  String securityQuestion, String securityAnswer, boolean termsOfUse, ServiceContext serviceContext
+	) throws PortalException {
+		return accountLocalService.addAccount(groupId, firstName, lastName, emailAddress, _userName,
+				gender, birthday, password1, confirmPassword, homePhone,
+				mobilePhone, address1, address2, city, state, zipCode,
+				securityQuestion, securityAnswer, termsOfUse, serviceContext);
+	}
 }
