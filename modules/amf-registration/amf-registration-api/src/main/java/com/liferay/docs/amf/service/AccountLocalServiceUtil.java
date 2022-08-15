@@ -59,6 +59,23 @@ public class AccountLocalServiceUtil {
 		return getService().addAccount(account);
 	}
 
+	public static Account addAccount(
+			long groupId, String firstName, String lastName,
+			String emailAddress, String _userName, String gender,
+			java.util.Date birthday, String password1, String confirmPassword,
+			String homePhone, String mobilePhone, String address1,
+			String address2, String city, String state, String zipCode,
+			String securityQuestion, String securityAnswer, boolean termsOfUse,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addAccount(
+			groupId, firstName, lastName, emailAddress, _userName, gender,
+			birthday, password1, confirmPassword, homePhone, mobilePhone,
+			address1, address2, city, state, zipCode, securityQuestion,
+			securityAnswer, termsOfUse, serviceContext);
+	}
+
 	/**
 	 * Creates a new account with the primary key. Does not add the account to the database.
 	 *

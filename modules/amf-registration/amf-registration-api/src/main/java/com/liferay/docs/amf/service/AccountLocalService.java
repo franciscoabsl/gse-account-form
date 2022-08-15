@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -36,6 +37,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -76,6 +78,16 @@ public interface AccountLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Account addAccount(Account account);
+
+	public Account addAccount(
+			long groupId, String firstName, String lastName,
+			String emailAddress, String _userName, String gender, Date birthday,
+			String password1, String confirmPassword, String homePhone,
+			String mobilePhone, String address1, String address2, String city,
+			String state, String zipCode, String securityQuestion,
+			String securityAnswer, boolean termsOfUse,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Creates a new account with the primary key. Does not add the account to the database.
