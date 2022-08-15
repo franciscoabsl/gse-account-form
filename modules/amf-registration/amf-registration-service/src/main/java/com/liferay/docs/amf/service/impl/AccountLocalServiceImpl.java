@@ -154,7 +154,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 			throw new UserNameException("Username must have between 4 and 16 characters.");
 		}
 		if(password1.length() < 6) {
-			throw new PasswordException("Email field must have at least 6 characters.");
+			throw new PasswordException("Password field must have at least 6 characters.");
 		}
 		if(!Validator.isNull(homePhone) && homePhone.length() != 10) {
 			throw new HomePhoneException("Home Phone field must have 10 digits.");
@@ -179,16 +179,16 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		if(!Validator.isAlphanumericName(_userName)) {
 			throw new UserNameException("Username field must have only alphanumeric characters.");
 		}
-		if(!Validator.isDigit(homePhone)) {
+		if(!Validator.isNull(homePhone) && !Validator.isDigit(homePhone)) {
 			throw new HomePhoneException("Home Phone field must have only digits.");
 		}
-		if(!Validator.isDigit(mobilePhone)) {
+		if(!Validator.isNull(mobilePhone) && !Validator.isDigit(mobilePhone)) {
 			throw new MobilePhoneException("Mobile Phone field must have only digits.");
 		}
 		if(!Validator.isAlphanumericName(address1)) {
 			throw new AddressException("Address field must have only alphanumeric characters.");
 		}
-		if(!Validator.isAlphanumericName(address2)) {
+		if(!Validator.isNull(address2) && !Validator.isAlphanumericName(address2)) {
 			throw new AddressException("Address field must have only alphanumeric characters.");
 		}
 		if(!Validator.isAlphanumericName(city)) {
