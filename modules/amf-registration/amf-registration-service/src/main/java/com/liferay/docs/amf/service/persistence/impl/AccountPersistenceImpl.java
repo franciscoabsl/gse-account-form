@@ -1450,9 +1450,9 @@ public class AccountPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"account.companyId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByfindByGroupId;
-	private FinderPath _finderPathWithoutPaginationFindByfindByGroupId;
-	private FinderPath _finderPathCountByfindByGroupId;
+	private FinderPath _finderPathWithPaginationFindByGroupId;
+	private FinderPath _finderPathWithoutPaginationFindByGroupId;
+	private FinderPath _finderPathCountByGroupId;
 
 	/**
 	 * Returns all the accounts where groupId = &#63;.
@@ -1461,8 +1461,8 @@ public class AccountPersistenceImpl
 	 * @return the matching accounts
 	 */
 	@Override
-	public List<Account> findByfindByGroupId(long groupId) {
-		return findByfindByGroupId(
+	public List<Account> findByGroupId(long groupId) {
+		return findByGroupId(
 			groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
@@ -1479,8 +1479,8 @@ public class AccountPersistenceImpl
 	 * @return the range of matching accounts
 	 */
 	@Override
-	public List<Account> findByfindByGroupId(long groupId, int start, int end) {
-		return findByfindByGroupId(groupId, start, end, null);
+	public List<Account> findByGroupId(long groupId, int start, int end) {
+		return findByGroupId(groupId, start, end, null);
 	}
 
 	/**
@@ -1497,12 +1497,11 @@ public class AccountPersistenceImpl
 	 * @return the ordered range of matching accounts
 	 */
 	@Override
-	public List<Account> findByfindByGroupId(
+	public List<Account> findByGroupId(
 		long groupId, int start, int end,
 		OrderByComparator<Account> orderByComparator) {
 
-		return findByfindByGroupId(
-			groupId, start, end, orderByComparator, true);
+		return findByGroupId(groupId, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -1520,7 +1519,7 @@ public class AccountPersistenceImpl
 	 * @return the ordered range of matching accounts
 	 */
 	@Override
-	public List<Account> findByfindByGroupId(
+	public List<Account> findByGroupId(
 		long groupId, int start, int end,
 		OrderByComparator<Account> orderByComparator, boolean useFinderCache) {
 
@@ -1531,12 +1530,12 @@ public class AccountPersistenceImpl
 			(orderByComparator == null)) {
 
 			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByfindByGroupId;
+				finderPath = _finderPathWithoutPaginationFindByGroupId;
 				finderArgs = new Object[] {groupId};
 			}
 		}
 		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByfindByGroupId;
+			finderPath = _finderPathWithPaginationFindByGroupId;
 			finderArgs = new Object[] {groupId, start, end, orderByComparator};
 		}
 
@@ -1569,7 +1568,7 @@ public class AccountPersistenceImpl
 
 			sb.append(_SQL_SELECT_ACCOUNT_WHERE);
 
-			sb.append(_FINDER_COLUMN_FINDBYGROUPID_GROUPID_2);
+			sb.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -1621,12 +1620,11 @@ public class AccountPersistenceImpl
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
 	@Override
-	public Account findByfindByGroupId_First(
+	public Account findByGroupId_First(
 			long groupId, OrderByComparator<Account> orderByComparator)
 		throws NoSuchAccountException {
 
-		Account account = fetchByfindByGroupId_First(
-			groupId, orderByComparator);
+		Account account = fetchByGroupId_First(groupId, orderByComparator);
 
 		if (account != null) {
 			return account;
@@ -1652,11 +1650,10 @@ public class AccountPersistenceImpl
 	 * @return the first matching account, or <code>null</code> if a matching account could not be found
 	 */
 	@Override
-	public Account fetchByfindByGroupId_First(
+	public Account fetchByGroupId_First(
 		long groupId, OrderByComparator<Account> orderByComparator) {
 
-		List<Account> list = findByfindByGroupId(
-			groupId, 0, 1, orderByComparator);
+		List<Account> list = findByGroupId(groupId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -1674,11 +1671,11 @@ public class AccountPersistenceImpl
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
 	@Override
-	public Account findByfindByGroupId_Last(
+	public Account findByGroupId_Last(
 			long groupId, OrderByComparator<Account> orderByComparator)
 		throws NoSuchAccountException {
 
-		Account account = fetchByfindByGroupId_Last(groupId, orderByComparator);
+		Account account = fetchByGroupId_Last(groupId, orderByComparator);
 
 		if (account != null) {
 			return account;
@@ -1704,16 +1701,16 @@ public class AccountPersistenceImpl
 	 * @return the last matching account, or <code>null</code> if a matching account could not be found
 	 */
 	@Override
-	public Account fetchByfindByGroupId_Last(
+	public Account fetchByGroupId_Last(
 		long groupId, OrderByComparator<Account> orderByComparator) {
 
-		int count = countByfindByGroupId(groupId);
+		int count = countByGroupId(groupId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Account> list = findByfindByGroupId(
+		List<Account> list = findByGroupId(
 			groupId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1733,7 +1730,7 @@ public class AccountPersistenceImpl
 	 * @throws NoSuchAccountException if a account with the primary key could not be found
 	 */
 	@Override
-	public Account[] findByfindByGroupId_PrevAndNext(
+	public Account[] findByGroupId_PrevAndNext(
 			long accountId, long groupId,
 			OrderByComparator<Account> orderByComparator)
 		throws NoSuchAccountException {
@@ -1747,12 +1744,12 @@ public class AccountPersistenceImpl
 
 			Account[] array = new AccountImpl[3];
 
-			array[0] = getByfindByGroupId_PrevAndNext(
+			array[0] = getByGroupId_PrevAndNext(
 				session, account, groupId, orderByComparator, true);
 
 			array[1] = account;
 
-			array[2] = getByfindByGroupId_PrevAndNext(
+			array[2] = getByGroupId_PrevAndNext(
 				session, account, groupId, orderByComparator, false);
 
 			return array;
@@ -1765,7 +1762,7 @@ public class AccountPersistenceImpl
 		}
 	}
 
-	protected Account getByfindByGroupId_PrevAndNext(
+	protected Account getByGroupId_PrevAndNext(
 		Session session, Account account, long groupId,
 		OrderByComparator<Account> orderByComparator, boolean previous) {
 
@@ -1782,7 +1779,7 @@ public class AccountPersistenceImpl
 
 		sb.append(_SQL_SELECT_ACCOUNT_WHERE);
 
-		sb.append(_FINDER_COLUMN_FINDBYGROUPID_GROUPID_2);
+		sb.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -1879,9 +1876,9 @@ public class AccountPersistenceImpl
 	 * @param groupId the group ID
 	 */
 	@Override
-	public void removeByfindByGroupId(long groupId) {
+	public void removeByGroupId(long groupId) {
 		for (Account account :
-				findByfindByGroupId(
+				findByGroupId(
 					groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
 			remove(account);
@@ -1895,8 +1892,8 @@ public class AccountPersistenceImpl
 	 * @return the number of matching accounts
 	 */
 	@Override
-	public int countByfindByGroupId(long groupId) {
-		FinderPath finderPath = _finderPathCountByfindByGroupId;
+	public int countByGroupId(long groupId) {
+		FinderPath finderPath = _finderPathCountByGroupId;
 
 		Object[] finderArgs = new Object[] {groupId};
 
@@ -1907,7 +1904,7 @@ public class AccountPersistenceImpl
 
 			sb.append(_SQL_COUNT_ACCOUNT_WHERE);
 
-			sb.append(_FINDER_COLUMN_FINDBYGROUPID_GROUPID_2);
+			sb.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
 
 			String sql = sb.toString();
 
@@ -1937,11 +1934,11 @@ public class AccountPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_FINDBYGROUPID_GROUPID_2 =
+	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 =
 		"account.groupId = ?";
 
-	private FinderPath _finderPathFetchByfindByUserName;
-	private FinderPath _finderPathCountByfindByUserName;
+	private FinderPath _finderPathFetchByUserName;
+	private FinderPath _finderPathCountByUserName;
 
 	/**
 	 * Returns the account where _userName = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
@@ -1951,10 +1948,10 @@ public class AccountPersistenceImpl
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
 	@Override
-	public Account findByfindByUserName(String _userName)
+	public Account findByUserName(String _userName)
 		throws NoSuchAccountException {
 
-		Account account = fetchByfindByUserName(_userName);
+		Account account = fetchByUserName(_userName);
 
 		if (account == null) {
 			StringBundler sb = new StringBundler(4);
@@ -1983,8 +1980,8 @@ public class AccountPersistenceImpl
 	 * @return the matching account, or <code>null</code> if a matching account could not be found
 	 */
 	@Override
-	public Account fetchByfindByUserName(String _userName) {
-		return fetchByfindByUserName(_userName, true);
+	public Account fetchByUserName(String _userName) {
+		return fetchByUserName(_userName, true);
 	}
 
 	/**
@@ -1995,9 +1992,7 @@ public class AccountPersistenceImpl
 	 * @return the matching account, or <code>null</code> if a matching account could not be found
 	 */
 	@Override
-	public Account fetchByfindByUserName(
-		String _userName, boolean useFinderCache) {
-
+	public Account fetchByUserName(String _userName, boolean useFinderCache) {
 		_userName = Objects.toString(_userName, "");
 
 		Object[] finderArgs = null;
@@ -2010,7 +2005,7 @@ public class AccountPersistenceImpl
 
 		if (useFinderCache) {
 			result = finderCache.getResult(
-				_finderPathFetchByfindByUserName, finderArgs);
+				_finderPathFetchByUserName, finderArgs);
 		}
 
 		if (result instanceof Account) {
@@ -2029,12 +2024,12 @@ public class AccountPersistenceImpl
 			boolean bind_userName = false;
 
 			if (_userName.isEmpty()) {
-				sb.append(_FINDER_COLUMN_FINDBYUSERNAME__USERNAME_3);
+				sb.append(_FINDER_COLUMN_USERNAME__USERNAME_3);
 			}
 			else {
 				bind_userName = true;
 
-				sb.append(_FINDER_COLUMN_FINDBYUSERNAME__USERNAME_2);
+				sb.append(_FINDER_COLUMN_USERNAME__USERNAME_2);
 			}
 
 			String sql = sb.toString();
@@ -2057,7 +2052,7 @@ public class AccountPersistenceImpl
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						finderCache.putResult(
-							_finderPathFetchByfindByUserName, finderArgs, list);
+							_finderPathFetchByUserName, finderArgs, list);
 					}
 				}
 				else {
@@ -2070,7 +2065,7 @@ public class AccountPersistenceImpl
 							}
 
 							_log.warn(
-								"AccountPersistenceImpl.fetchByfindByUserName(String, boolean) with parameters (" +
+								"AccountPersistenceImpl.fetchByUserName(String, boolean) with parameters (" +
 									StringUtil.merge(finderArgs) +
 										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
 						}
@@ -2106,10 +2101,10 @@ public class AccountPersistenceImpl
 	 * @return the account that was removed
 	 */
 	@Override
-	public Account removeByfindByUserName(String _userName)
+	public Account removeByUserName(String _userName)
 		throws NoSuchAccountException {
 
-		Account account = findByfindByUserName(_userName);
+		Account account = findByUserName(_userName);
 
 		return remove(account);
 	}
@@ -2121,10 +2116,10 @@ public class AccountPersistenceImpl
 	 * @return the number of matching accounts
 	 */
 	@Override
-	public int countByfindByUserName(String _userName) {
+	public int countByUserName(String _userName) {
 		_userName = Objects.toString(_userName, "");
 
-		FinderPath finderPath = _finderPathCountByfindByUserName;
+		FinderPath finderPath = _finderPathCountByUserName;
 
 		Object[] finderArgs = new Object[] {_userName};
 
@@ -2138,12 +2133,12 @@ public class AccountPersistenceImpl
 			boolean bind_userName = false;
 
 			if (_userName.isEmpty()) {
-				sb.append(_FINDER_COLUMN_FINDBYUSERNAME__USERNAME_3);
+				sb.append(_FINDER_COLUMN_USERNAME__USERNAME_3);
 			}
 			else {
 				bind_userName = true;
 
-				sb.append(_FINDER_COLUMN_FINDBYUSERNAME__USERNAME_2);
+				sb.append(_FINDER_COLUMN_USERNAME__USERNAME_2);
 			}
 
 			String sql = sb.toString();
@@ -2176,10 +2171,10 @@ public class AccountPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_FINDBYUSERNAME__USERNAME_2 =
+	private static final String _FINDER_COLUMN_USERNAME__USERNAME_2 =
 		"account._userName = ?";
 
-	private static final String _FINDER_COLUMN_FINDBYUSERNAME__USERNAME_3 =
+	private static final String _FINDER_COLUMN_USERNAME__USERNAME_3 =
 		"(account._userName IS NULL OR account._userName = '')";
 
 	public AccountPersistenceImpl() {
@@ -2213,8 +2208,8 @@ public class AccountPersistenceImpl
 			new Object[] {account.getUuid(), account.getGroupId()}, account);
 
 		finderCache.putResult(
-			_finderPathFetchByfindByUserName,
-			new Object[] {account.get_userName()}, account);
+			_finderPathFetchByUserName, new Object[] {account.get_userName()},
+			account);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -2295,9 +2290,9 @@ public class AccountPersistenceImpl
 		args = new Object[] {accountModelImpl.get_userName()};
 
 		finderCache.putResult(
-			_finderPathCountByfindByUserName, args, Long.valueOf(1));
+			_finderPathCountByUserName, args, Long.valueOf(1));
 		finderCache.putResult(
-			_finderPathFetchByfindByUserName, args, accountModelImpl);
+			_finderPathFetchByUserName, args, accountModelImpl);
 	}
 
 	/**
@@ -2808,31 +2803,31 @@ public class AccountPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
 
-		_finderPathWithPaginationFindByfindByGroupId = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByfindByGroupId",
+		_finderPathWithPaginationFindByGroupId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
 			},
 			new String[] {"groupId"}, true);
 
-		_finderPathWithoutPaginationFindByfindByGroupId = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByfindByGroupId",
+		_finderPathWithoutPaginationFindByGroupId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupId",
 			new String[] {Long.class.getName()}, new String[] {"groupId"},
 			true);
 
-		_finderPathCountByfindByGroupId = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByfindByGroupId",
+		_finderPathCountByGroupId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
 			new String[] {Long.class.getName()}, new String[] {"groupId"},
 			false);
 
-		_finderPathFetchByfindByUserName = new FinderPath(
-			FINDER_CLASS_NAME_ENTITY, "fetchByfindByUserName",
+		_finderPathFetchByUserName = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByUserName",
 			new String[] {String.class.getName()}, new String[] {"_userName"},
 			true);
 
-		_finderPathCountByfindByUserName = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByfindByUserName",
+		_finderPathCountByUserName = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserName",
 			new String[] {String.class.getName()}, new String[] {"_userName"},
 			false);
 

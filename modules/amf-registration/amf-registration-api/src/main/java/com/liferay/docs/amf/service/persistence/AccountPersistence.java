@@ -392,7 +392,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param groupId the group ID
 	 * @return the matching accounts
 	 */
-	public java.util.List<Account> findByfindByGroupId(long groupId);
+	public java.util.List<Account> findByGroupId(long groupId);
 
 	/**
 	 * Returns a range of all the accounts where groupId = &#63;.
@@ -406,7 +406,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param end the upper bound of the range of accounts (not inclusive)
 	 * @return the range of matching accounts
 	 */
-	public java.util.List<Account> findByfindByGroupId(
+	public java.util.List<Account> findByGroupId(
 		long groupId, int start, int end);
 
 	/**
@@ -422,7 +422,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching accounts
 	 */
-	public java.util.List<Account> findByfindByGroupId(
+	public java.util.List<Account> findByGroupId(
 		long groupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Account>
 			orderByComparator);
@@ -441,7 +441,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching accounts
 	 */
-	public java.util.List<Account> findByfindByGroupId(
+	public java.util.List<Account> findByGroupId(
 		long groupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Account>
 			orderByComparator,
@@ -455,7 +455,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @return the first matching account
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
-	public Account findByfindByGroupId_First(
+	public Account findByGroupId_First(
 			long groupId,
 			com.liferay.portal.kernel.util.OrderByComparator<Account>
 				orderByComparator)
@@ -468,7 +468,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public Account fetchByfindByGroupId_First(
+	public Account fetchByGroupId_First(
 		long groupId,
 		com.liferay.portal.kernel.util.OrderByComparator<Account>
 			orderByComparator);
@@ -481,7 +481,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @return the last matching account
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
-	public Account findByfindByGroupId_Last(
+	public Account findByGroupId_Last(
 			long groupId,
 			com.liferay.portal.kernel.util.OrderByComparator<Account>
 				orderByComparator)
@@ -494,7 +494,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public Account fetchByfindByGroupId_Last(
+	public Account fetchByGroupId_Last(
 		long groupId,
 		com.liferay.portal.kernel.util.OrderByComparator<Account>
 			orderByComparator);
@@ -508,7 +508,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @return the previous, current, and next account
 	 * @throws NoSuchAccountException if a account with the primary key could not be found
 	 */
-	public Account[] findByfindByGroupId_PrevAndNext(
+	public Account[] findByGroupId_PrevAndNext(
 			long accountId, long groupId,
 			com.liferay.portal.kernel.util.OrderByComparator<Account>
 				orderByComparator)
@@ -519,7 +519,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 *
 	 * @param groupId the group ID
 	 */
-	public void removeByfindByGroupId(long groupId);
+	public void removeByGroupId(long groupId);
 
 	/**
 	 * Returns the number of accounts where groupId = &#63;.
@@ -527,7 +527,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param groupId the group ID
 	 * @return the number of matching accounts
 	 */
-	public int countByfindByGroupId(long groupId);
+	public int countByGroupId(long groupId);
 
 	/**
 	 * Returns the account where _userName = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
@@ -536,7 +536,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @return the matching account
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
-	public Account findByfindByUserName(String _userName)
+	public Account findByUserName(String _userName)
 		throws NoSuchAccountException;
 
 	/**
@@ -545,7 +545,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param _userName the _user name
 	 * @return the matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public Account fetchByfindByUserName(String _userName);
+	public Account fetchByUserName(String _userName);
 
 	/**
 	 * Returns the account where _userName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -554,8 +554,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public Account fetchByfindByUserName(
-		String _userName, boolean useFinderCache);
+	public Account fetchByUserName(String _userName, boolean useFinderCache);
 
 	/**
 	 * Removes the account where _userName = &#63; from the database.
@@ -563,7 +562,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param _userName the _user name
 	 * @return the account that was removed
 	 */
-	public Account removeByfindByUserName(String _userName)
+	public Account removeByUserName(String _userName)
 		throws NoSuchAccountException;
 
 	/**
@@ -572,7 +571,7 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	 * @param _userName the _user name
 	 * @return the number of matching accounts
 	 */
-	public int countByfindByUserName(String _userName);
+	public int countByUserName(String _userName);
 
 	/**
 	 * Caches the account in the entity cache if it is enabled.

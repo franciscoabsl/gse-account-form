@@ -532,8 +532,8 @@ public class AccountUtil {
 	 * @param groupId the group ID
 	 * @return the matching accounts
 	 */
-	public static List<Account> findByfindByGroupId(long groupId) {
-		return getPersistence().findByfindByGroupId(groupId);
+	public static List<Account> findByGroupId(long groupId) {
+		return getPersistence().findByGroupId(groupId);
 	}
 
 	/**
@@ -548,10 +548,10 @@ public class AccountUtil {
 	 * @param end the upper bound of the range of accounts (not inclusive)
 	 * @return the range of matching accounts
 	 */
-	public static List<Account> findByfindByGroupId(
+	public static List<Account> findByGroupId(
 		long groupId, int start, int end) {
 
-		return getPersistence().findByfindByGroupId(groupId, start, end);
+		return getPersistence().findByGroupId(groupId, start, end);
 	}
 
 	/**
@@ -567,11 +567,11 @@ public class AccountUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching accounts
 	 */
-	public static List<Account> findByfindByGroupId(
+	public static List<Account> findByGroupId(
 		long groupId, int start, int end,
 		OrderByComparator<Account> orderByComparator) {
 
-		return getPersistence().findByfindByGroupId(
+		return getPersistence().findByGroupId(
 			groupId, start, end, orderByComparator);
 	}
 
@@ -589,11 +589,11 @@ public class AccountUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the ordered range of matching accounts
 	 */
-	public static List<Account> findByfindByGroupId(
+	public static List<Account> findByGroupId(
 		long groupId, int start, int end,
 		OrderByComparator<Account> orderByComparator, boolean useFinderCache) {
 
-		return getPersistence().findByfindByGroupId(
+		return getPersistence().findByGroupId(
 			groupId, start, end, orderByComparator, useFinderCache);
 	}
 
@@ -605,12 +605,11 @@ public class AccountUtil {
 	 * @return the first matching account
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
-	public static Account findByfindByGroupId_First(
+	public static Account findByGroupId_First(
 			long groupId, OrderByComparator<Account> orderByComparator)
 		throws com.liferay.docs.amf.exception.NoSuchAccountException {
 
-		return getPersistence().findByfindByGroupId_First(
-			groupId, orderByComparator);
+		return getPersistence().findByGroupId_First(groupId, orderByComparator);
 	}
 
 	/**
@@ -620,10 +619,10 @@ public class AccountUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public static Account fetchByfindByGroupId_First(
+	public static Account fetchByGroupId_First(
 		long groupId, OrderByComparator<Account> orderByComparator) {
 
-		return getPersistence().fetchByfindByGroupId_First(
+		return getPersistence().fetchByGroupId_First(
 			groupId, orderByComparator);
 	}
 
@@ -635,12 +634,11 @@ public class AccountUtil {
 	 * @return the last matching account
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
-	public static Account findByfindByGroupId_Last(
+	public static Account findByGroupId_Last(
 			long groupId, OrderByComparator<Account> orderByComparator)
 		throws com.liferay.docs.amf.exception.NoSuchAccountException {
 
-		return getPersistence().findByfindByGroupId_Last(
-			groupId, orderByComparator);
+		return getPersistence().findByGroupId_Last(groupId, orderByComparator);
 	}
 
 	/**
@@ -650,11 +648,10 @@ public class AccountUtil {
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public static Account fetchByfindByGroupId_Last(
+	public static Account fetchByGroupId_Last(
 		long groupId, OrderByComparator<Account> orderByComparator) {
 
-		return getPersistence().fetchByfindByGroupId_Last(
-			groupId, orderByComparator);
+		return getPersistence().fetchByGroupId_Last(groupId, orderByComparator);
 	}
 
 	/**
@@ -666,12 +663,12 @@ public class AccountUtil {
 	 * @return the previous, current, and next account
 	 * @throws NoSuchAccountException if a account with the primary key could not be found
 	 */
-	public static Account[] findByfindByGroupId_PrevAndNext(
+	public static Account[] findByGroupId_PrevAndNext(
 			long accountId, long groupId,
 			OrderByComparator<Account> orderByComparator)
 		throws com.liferay.docs.amf.exception.NoSuchAccountException {
 
-		return getPersistence().findByfindByGroupId_PrevAndNext(
+		return getPersistence().findByGroupId_PrevAndNext(
 			accountId, groupId, orderByComparator);
 	}
 
@@ -680,8 +677,8 @@ public class AccountUtil {
 	 *
 	 * @param groupId the group ID
 	 */
-	public static void removeByfindByGroupId(long groupId) {
-		getPersistence().removeByfindByGroupId(groupId);
+	public static void removeByGroupId(long groupId) {
+		getPersistence().removeByGroupId(groupId);
 	}
 
 	/**
@@ -690,8 +687,8 @@ public class AccountUtil {
 	 * @param groupId the group ID
 	 * @return the number of matching accounts
 	 */
-	public static int countByfindByGroupId(long groupId) {
-		return getPersistence().countByfindByGroupId(groupId);
+	public static int countByGroupId(long groupId) {
+		return getPersistence().countByGroupId(groupId);
 	}
 
 	/**
@@ -701,10 +698,10 @@ public class AccountUtil {
 	 * @return the matching account
 	 * @throws NoSuchAccountException if a matching account could not be found
 	 */
-	public static Account findByfindByUserName(String _userName)
+	public static Account findByUserName(String _userName)
 		throws com.liferay.docs.amf.exception.NoSuchAccountException {
 
-		return getPersistence().findByfindByUserName(_userName);
+		return getPersistence().findByUserName(_userName);
 	}
 
 	/**
@@ -713,8 +710,8 @@ public class AccountUtil {
 	 * @param _userName the _user name
 	 * @return the matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public static Account fetchByfindByUserName(String _userName) {
-		return getPersistence().fetchByfindByUserName(_userName);
+	public static Account fetchByUserName(String _userName) {
+		return getPersistence().fetchByUserName(_userName);
 	}
 
 	/**
@@ -724,11 +721,10 @@ public class AccountUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching account, or <code>null</code> if a matching account could not be found
 	 */
-	public static Account fetchByfindByUserName(
+	public static Account fetchByUserName(
 		String _userName, boolean useFinderCache) {
 
-		return getPersistence().fetchByfindByUserName(
-			_userName, useFinderCache);
+		return getPersistence().fetchByUserName(_userName, useFinderCache);
 	}
 
 	/**
@@ -737,10 +733,10 @@ public class AccountUtil {
 	 * @param _userName the _user name
 	 * @return the account that was removed
 	 */
-	public static Account removeByfindByUserName(String _userName)
+	public static Account removeByUserName(String _userName)
 		throws com.liferay.docs.amf.exception.NoSuchAccountException {
 
-		return getPersistence().removeByfindByUserName(_userName);
+		return getPersistence().removeByUserName(_userName);
 	}
 
 	/**
@@ -749,8 +745,8 @@ public class AccountUtil {
 	 * @param _userName the _user name
 	 * @return the number of matching accounts
 	 */
-	public static int countByfindByUserName(String _userName) {
-		return getPersistence().countByfindByUserName(_userName);
+	public static int countByUserName(String _userName) {
+		return getPersistence().countByUserName(_userName);
 	}
 
 	/**
