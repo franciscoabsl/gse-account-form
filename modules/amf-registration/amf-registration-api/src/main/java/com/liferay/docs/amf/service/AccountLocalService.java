@@ -14,6 +14,7 @@
 
 package com.liferay.docs.amf.service;
 
+import com.liferay.docs.amf.exception.*;
 import com.liferay.docs.amf.model.Account;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
@@ -330,5 +331,14 @@ public interface AccountLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public Account updateAccount(Account account);
+
+	public void validation(
+			String firstName, String lastName, String emailAddress,
+			String _userName, String gender, Date birthday, String password1,
+			String confirmPassword, String homePhone, String mobilePhone,
+			String address1, String address2, String city, String state,
+			String zipCode, String securityQuestion, String securityAnswer,
+			boolean termsOfUse)
+		throws PortalException;
 
 }
