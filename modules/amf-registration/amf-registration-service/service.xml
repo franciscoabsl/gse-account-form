@@ -60,4 +60,23 @@
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
 	</entity>
+	<exceptions>
+		<exception>FirstName</exception>
+		<exception>LastName</exception>
+		<exception>Email</exception>
+		<exception>UserName</exception>
+		<exception>Gender</exception>
+		<exception>Birthday</exception>
+		<exception>Password</exception>
+		<exception>ConfirmPassword</exception>
+		<exception>HomePhone</exception>
+		<exception>MobilePhone</exception>
+		<exception>Address</exception>
+		<exception>City</exception>
+		<exception>State</exception>
+		<exception>ZipCode</exception>
+		<exception>SecurityQuestion</exception>
+		<exception>SecurityAnswer</exception>
+		<exception>TermsOfUse</exception>
+	</exceptions>
 </service-builder>
