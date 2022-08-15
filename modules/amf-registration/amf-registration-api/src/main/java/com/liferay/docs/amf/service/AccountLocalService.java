@@ -350,7 +350,7 @@ public interface AccountLocalService
 			String securityAnswer)
 		throws PortalException;
 
-	public void validation(
+	public void validate(
 			String firstName, String lastName, String emailAddress,
 			String _userName, String gender, Date birthday, String password1,
 			String confirmPassword, String homePhone, String mobilePhone,
@@ -358,7 +358,7 @@ public interface AccountLocalService
 			String zipCode, String securityQuestion, String securityAnswer)
 		throws PortalException;
 
-	public void validation(
+	public void validate(
 			String firstName, String lastName, String emailAddress,
 			String _userName, String gender, Date birthday, String password1,
 			String confirmPassword, String homePhone, String mobilePhone,

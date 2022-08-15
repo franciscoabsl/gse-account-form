@@ -403,7 +403,7 @@ public class AccountLocalServiceUtil {
 			securityAnswer);
 	}
 
-	public static void validation(
+	public static void validate(
 			String firstName, String lastName, String emailAddress,
 			String _userName, String gender, java.util.Date birthday,
 			String password1, String confirmPassword, String homePhone,
@@ -412,13 +412,13 @@ public class AccountLocalServiceUtil {
 			String securityAnswer)
 		throws PortalException {
 
-		getService().validation(
+		getService().validate(
 			firstName, lastName, emailAddress, _userName, gender, birthday,
 			password1, confirmPassword, homePhone, mobilePhone, address1,
 			address2, city, state, zipCode, securityQuestion, securityAnswer);
 	}
 
-	public static void validation(
+	public static void validate(
 			String firstName, String lastName, String emailAddress,
 			String _userName, String gender, java.util.Date birthday,
 			String password1, String confirmPassword, String homePhone,
@@ -427,7 +427,7 @@ public class AccountLocalServiceUtil {
 			String securityAnswer, boolean termsOfUse)
 		throws PortalException {
 
-		getService().validation(
+		getService().validate(
 			firstName, lastName, emailAddress, _userName, gender, birthday,
 			password1, confirmPassword, homePhone, mobilePhone, address1,
 			address2, city, state, zipCode, securityQuestion, securityAnswer,
