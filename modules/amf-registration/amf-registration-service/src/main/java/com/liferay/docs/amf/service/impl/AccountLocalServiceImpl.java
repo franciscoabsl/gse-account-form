@@ -123,14 +123,18 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 
 		return super.updateAccount(account);
 	}
+
+	@Override
 	public List<Account> getAccountsByGroupId(long groupId) {
 		return accountPersistence.findByfindByGroupId(groupId);
 	}
 
+	@Override
 	public Account getAccountById(long accountId) throws NoSuchAccountException {
 		return accountPersistence.findByPrimaryKey(accountId);
 	}
 
+	@Override
 	public Account deleteAccountById(long accountId) throws NoSuchAccountException {
 		return accountPersistence.remove(accountId);
 	}

@@ -14,6 +14,7 @@
 
 package com.liferay.docs.amf.service.impl;
 
+import com.liferay.docs.amf.exception.NoSuchAccountException;
 import com.liferay.docs.amf.model.Account;
 import com.liferay.docs.amf.service.base.AccountServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -23,6 +24,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import org.osgi.service.component.annotations.Component;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Brian Wing Shun Chan
@@ -55,5 +57,20 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 		return accountLocalService.updateAccount(accountId, firstName, lastName, emailAddress, _userName,
 				gender, birthday, password1, confirmPassword, homePhone, mobilePhone, address1, address2, city, state,
 				zipCode, securityQuestion, securityAnswer);
+	}
+
+	@Override
+	public List<Account> getAccountsByGroupId(long groupId) {
+		return accountLocalService.getAccountsByGroupId(groupId);
+	}
+
+	@Override
+	public Account getAccountById(long accountId) throws NoSuchAccountException {
+		return accountLocalService.getAccountById(accountId);
+	}
+
+	@Override
+	public Account deleteAccountById(long accountId) throws NoSuchAccountException {
+		return accountLocalService.deleteAccountById(accountId);
 	}
 }
