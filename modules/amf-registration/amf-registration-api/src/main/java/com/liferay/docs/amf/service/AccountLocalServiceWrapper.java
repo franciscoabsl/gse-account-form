@@ -14,6 +14,7 @@
 
 package com.liferay.docs.amf.service;
 
+import com.liferay.docs.amf.exception.NoSuchAccountException;
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
