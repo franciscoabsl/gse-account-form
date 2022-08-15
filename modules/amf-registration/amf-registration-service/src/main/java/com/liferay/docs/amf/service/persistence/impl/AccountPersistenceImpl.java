@@ -45,6 +45,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUID;
 
@@ -53,6 +54,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1938,6 +1940,248 @@ public class AccountPersistenceImpl
 	private static final String _FINDER_COLUMN_FINDBYGROUPID_GROUPID_2 =
 		"account.groupId = ?";
 
+	private FinderPath _finderPathFetchByfindByUserName;
+	private FinderPath _finderPathCountByfindByUserName;
+
+	/**
+	 * Returns the account where _userName = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
+	 *
+	 * @param _userName the _user name
+	 * @return the matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	@Override
+	public Account findByfindByUserName(String _userName)
+		throws NoSuchAccountException {
+
+		Account account = fetchByfindByUserName(_userName);
+
+		if (account == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("_userName=");
+			sb.append(_userName);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchAccountException(sb.toString());
+		}
+
+		return account;
+	}
+
+	/**
+	 * Returns the account where _userName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param _userName the _user name
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	@Override
+	public Account fetchByfindByUserName(String _userName) {
+		return fetchByfindByUserName(_userName, true);
+	}
+
+	/**
+	 * Returns the account where _userName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param _userName the _user name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	@Override
+	public Account fetchByfindByUserName(
+		String _userName, boolean useFinderCache) {
+
+		_userName = Objects.toString(_userName, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {_userName};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByfindByUserName, finderArgs);
+		}
+
+		if (result instanceof Account) {
+			Account account = (Account)result;
+
+			if (!Objects.equals(_userName, account.get_userName())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_ACCOUNT_WHERE);
+
+			boolean bind_userName = false;
+
+			if (_userName.isEmpty()) {
+				sb.append(_FINDER_COLUMN_FINDBYUSERNAME__USERNAME_3);
+			}
+			else {
+				bind_userName = true;
+
+				sb.append(_FINDER_COLUMN_FINDBYUSERNAME__USERNAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bind_userName) {
+					queryPos.add(_userName);
+				}
+
+				List<Account> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByfindByUserName, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {_userName};
+							}
+
+							_log.warn(
+								"AccountPersistenceImpl.fetchByfindByUserName(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					Account account = list.get(0);
+
+					result = account;
+
+					cacheResult(account);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Account)result;
+		}
+	}
+
+	/**
+	 * Removes the account where _userName = &#63; from the database.
+	 *
+	 * @param _userName the _user name
+	 * @return the account that was removed
+	 */
+	@Override
+	public Account removeByfindByUserName(String _userName)
+		throws NoSuchAccountException {
+
+		Account account = findByfindByUserName(_userName);
+
+		return remove(account);
+	}
+
+	/**
+	 * Returns the number of accounts where _userName = &#63;.
+	 *
+	 * @param _userName the _user name
+	 * @return the number of matching accounts
+	 */
+	@Override
+	public int countByfindByUserName(String _userName) {
+		_userName = Objects.toString(_userName, "");
+
+		FinderPath finderPath = _finderPathCountByfindByUserName;
+
+		Object[] finderArgs = new Object[] {_userName};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_ACCOUNT_WHERE);
+
+			boolean bind_userName = false;
+
+			if (_userName.isEmpty()) {
+				sb.append(_FINDER_COLUMN_FINDBYUSERNAME__USERNAME_3);
+			}
+			else {
+				bind_userName = true;
+
+				sb.append(_FINDER_COLUMN_FINDBYUSERNAME__USERNAME_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bind_userName) {
+					queryPos.add(_userName);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FINDBYUSERNAME__USERNAME_2 =
+		"account._userName = ?";
+
+	private static final String _FINDER_COLUMN_FINDBYUSERNAME__USERNAME_3 =
+		"(account._userName IS NULL OR account._userName = '')";
+
 	public AccountPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1967,6 +2211,10 @@ public class AccountPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {account.getUuid(), account.getGroupId()}, account);
+
+		finderCache.putResult(
+			_finderPathFetchByfindByUserName,
+			new Object[] {account.get_userName()}, account);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -2043,6 +2291,13 @@ public class AccountPersistenceImpl
 
 		finderCache.putResult(_finderPathCountByUUID_G, args, Long.valueOf(1));
 		finderCache.putResult(_finderPathFetchByUUID_G, args, accountModelImpl);
+
+		args = new Object[] {accountModelImpl.get_userName()};
+
+		finderCache.putResult(
+			_finderPathCountByfindByUserName, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByfindByUserName, args, accountModelImpl);
 	}
 
 	/**
@@ -2569,6 +2824,16 @@ public class AccountPersistenceImpl
 		_finderPathCountByfindByGroupId = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByfindByGroupId",
 			new String[] {Long.class.getName()}, new String[] {"groupId"},
+			false);
+
+		_finderPathFetchByfindByUserName = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByfindByUserName",
+			new String[] {String.class.getName()}, new String[] {"_userName"},
+			true);
+
+		_finderPathCountByfindByUserName = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByfindByUserName",
+			new String[] {String.class.getName()}, new String[] {"_userName"},
 			false);
 
 		_setAccountUtilPersistence(this);

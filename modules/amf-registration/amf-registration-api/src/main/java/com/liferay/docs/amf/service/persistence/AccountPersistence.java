@@ -530,6 +530,51 @@ public interface AccountPersistence extends BasePersistence<Account> {
 	public int countByfindByGroupId(long groupId);
 
 	/**
+	 * Returns the account where _userName = &#63; or throws a <code>NoSuchAccountException</code> if it could not be found.
+	 *
+	 * @param _userName the _user name
+	 * @return the matching account
+	 * @throws NoSuchAccountException if a matching account could not be found
+	 */
+	public Account findByfindByUserName(String _userName)
+		throws NoSuchAccountException;
+
+	/**
+	 * Returns the account where _userName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param _userName the _user name
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public Account fetchByfindByUserName(String _userName);
+
+	/**
+	 * Returns the account where _userName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param _userName the _user name
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching account, or <code>null</code> if a matching account could not be found
+	 */
+	public Account fetchByfindByUserName(
+		String _userName, boolean useFinderCache);
+
+	/**
+	 * Removes the account where _userName = &#63; from the database.
+	 *
+	 * @param _userName the _user name
+	 * @return the account that was removed
+	 */
+	public Account removeByfindByUserName(String _userName)
+		throws NoSuchAccountException;
+
+	/**
+	 * Returns the number of accounts where _userName = &#63;.
+	 *
+	 * @param _userName the _user name
+	 * @return the number of matching accounts
+	 */
+	public int countByfindByUserName(String _userName);
+
+	/**
 	 * Caches the account in the entity cache if it is enabled.
 	 *
 	 * @param account the account

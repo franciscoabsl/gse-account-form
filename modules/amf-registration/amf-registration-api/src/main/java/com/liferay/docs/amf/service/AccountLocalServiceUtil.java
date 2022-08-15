@@ -14,7 +14,6 @@
 
 package com.liferay.docs.amf.service;
 
-import com.liferay.docs.amf.exception.NoSuchAccountException;
 import com.liferay.docs.amf.model.Account;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
