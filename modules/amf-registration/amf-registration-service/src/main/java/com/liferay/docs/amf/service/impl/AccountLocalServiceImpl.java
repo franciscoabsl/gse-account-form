@@ -55,8 +55,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		Account account = createAccount(accountId);
 
 		// Populate fields
+		account.setGroupId(groupId);
 		account.setCompanyId(group.getCompanyId());
 		account.setUserName(user.getScreenName());
+		account.setUserId(userId);
 		account.setFirstName(firstName);
 		account.setLastName(lastName);
 		account.setEmailAddress(emailAddress);
