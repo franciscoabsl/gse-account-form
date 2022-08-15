@@ -126,6 +126,13 @@ public class AccountLocalServiceWrapper
 		return _accountLocalService.deleteAccount(accountId);
 	}
 
+	@Override
+	public com.liferay.docs.amf.model.Account deleteAccountById(long accountId)
+		throws NoSuchAccountException {
+
+		return _accountLocalService.deleteAccountById(accountId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -271,6 +278,13 @@ public class AccountLocalServiceWrapper
 		return _accountLocalService.getAccount(accountId);
 	}
 
+	@Override
+	public com.liferay.docs.amf.model.Account getAccountById(long accountId)
+		throws NoSuchAccountException {
+
+		return _accountLocalService.getAccountById(accountId);
+	}
+
 	/**
 	 * Returns the account matching the UUID and group.
 	 *
@@ -303,6 +317,13 @@ public class AccountLocalServiceWrapper
 		int start, int end) {
 
 		return _accountLocalService.getAccounts(start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.docs.amf.model.Account>
+		getAccountsByGroupId(long groupId) {
+
+		return _accountLocalService.getAccountsByGroupId(groupId);
 	}
 
 	/**

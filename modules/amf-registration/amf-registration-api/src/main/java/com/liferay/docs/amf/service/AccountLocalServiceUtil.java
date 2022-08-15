@@ -125,6 +125,12 @@ public class AccountLocalServiceUtil {
 		return getService().deleteAccount(accountId);
 	}
 
+	public static Account deleteAccountById(long accountId)
+		throws NoSuchAccountException {
+
+		return getService().deleteAccountById(accountId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -248,6 +254,12 @@ public class AccountLocalServiceUtil {
 		return getService().getAccount(accountId);
 	}
 
+	public static Account getAccountById(long accountId)
+		throws NoSuchAccountException {
+
+		return getService().getAccountById(accountId);
+	}
+
 	/**
 	 * Returns the account matching the UUID and group.
 	 *
@@ -275,6 +287,10 @@ public class AccountLocalServiceUtil {
 	 */
 	public static List<Account> getAccounts(int start, int end) {
 		return getService().getAccounts(start, end);
+	}
+
+	public static List<Account> getAccountsByGroupId(long groupId) {
+		return getService().getAccountsByGroupId(groupId);
 	}
 
 	/**

@@ -132,6 +132,9 @@ public interface AccountLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public Account deleteAccount(long accountId) throws PortalException;
 
+	public Account deleteAccountById(long accountId)
+		throws NoSuchAccountException;
+
 	/**
 	 * @throws PortalException
 	 */
@@ -234,6 +237,9 @@ public interface AccountLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Account getAccount(long accountId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Account getAccountById(long accountId) throws NoSuchAccountException;
+
 	/**
 	 * Returns the account matching the UUID and group.
 	 *
@@ -259,6 +265,9 @@ public interface AccountLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Account> getAccounts(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Account> getAccountsByGroupId(long groupId);
 
 	/**
 	 * Returns all the accounts matching the UUID and company.
