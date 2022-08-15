@@ -1,0 +1,10 @@
+Bundle-Name: amf-registration-api
+Bundle-SymbolicName: com.liferay.docs.amf.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.docs.amf.exception,\
+	com.liferay.docs.amf.model,\
+	com.liferay.docs.amf.service,\
+	com.liferay.docs.amf.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../amf-registration-service/service.xml
