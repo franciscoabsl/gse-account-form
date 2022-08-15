@@ -101,6 +101,54 @@ public class AccountServiceHttp {
 		}
 	}
 
+	public static com.liferay.docs.amf.model.Account updateAccount(
+			HttpPrincipal httpPrincipal, long accountId, String firstName,
+			String lastName, String emailAddress, String _userName,
+			String gender, java.util.Date birthday, String password1,
+			String confirmPassword, String homePhone, String mobilePhone,
+			String address1, String address2, String city, String state,
+			String zipCode, String securityQuestion, String securityAnswer)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				AccountServiceUtil.class, "updateAccount",
+				_updateAccountParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, accountId, firstName, lastName, emailAddress,
+				_userName, gender, birthday, password1, confirmPassword,
+				homePhone, mobilePhone, address1, address2, city, state,
+				zipCode, securityQuestion, securityAnswer);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.docs.amf.model.Account)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(AccountServiceHttp.class);
 
 	private static final Class<?>[] _addAccountParameterTypes0 = new Class[] {
@@ -110,5 +158,12 @@ public class AccountServiceHttp {
 		String.class, String.class, String.class, String.class, boolean.class,
 		com.liferay.portal.kernel.service.ServiceContext.class
 	};
+	private static final Class<?>[] _updateAccountParameterTypes1 =
+		new Class[] {
+			long.class, String.class, String.class, String.class, String.class,
+			String.class, java.util.Date.class, String.class, String.class,
+			String.class, String.class, String.class, String.class,
+			String.class, String.class, String.class, String.class, String.class
+		};
 
 }

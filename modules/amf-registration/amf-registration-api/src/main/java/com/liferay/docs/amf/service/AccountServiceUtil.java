@@ -62,6 +62,22 @@ public class AccountServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static Account updateAccount(
+			long accountId, String firstName, String lastName,
+			String emailAddress, String _userName, String gender,
+			java.util.Date birthday, String password1, String confirmPassword,
+			String homePhone, String mobilePhone, String address1,
+			String address2, String city, String state, String zipCode,
+			String securityQuestion, String securityAnswer)
+		throws PortalException {
+
+		return getService().updateAccount(
+			accountId, firstName, lastName, emailAddress, _userName, gender,
+			birthday, password1, confirmPassword, homePhone, mobilePhone,
+			address1, address2, city, state, zipCode, securityQuestion,
+			securityAnswer);
+	}
+
 	public static AccountService getService() {
 		return _service;
 	}
