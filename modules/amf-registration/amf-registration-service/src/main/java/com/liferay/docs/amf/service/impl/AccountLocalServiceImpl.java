@@ -31,6 +31,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Brian Wing Shun Chan
@@ -121,6 +122,17 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setSecurityAnswer(securityAnswer);
 
 		return super.updateAccount(account);
+	}
+	public List<Account> getAccountsByGroupId(long groupId) {
+		return accountPersistence.findByfindByGroupId(groupId);
+	}
+
+	public Account getAccountById(long accountId) throws NoSuchAccountException {
+		return accountPersistence.findByPrimaryKey(accountId);
+	}
+
+	public Account deleteAccountById(long accountId) throws NoSuchAccountException {
+		return accountPersistence.remove(accountId);
 	}
 
 	@Override
