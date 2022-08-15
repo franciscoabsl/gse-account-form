@@ -40,6 +40,8 @@ import java.util.Date;
 	service = AopService.class
 )
 public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
+
+	@Override
 	public Account addAccount(long groupId, String firstName, String lastName, String emailAddress, String _userName,
 							  String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 							  String mobilePhone, String address1, String address2, String city, String state, String zipCode,
@@ -88,6 +90,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		return super.addAccount(account);
 	}
 
+	@Override
 	public void validation(String firstName, String lastName, String emailAddress, String _userName,
 						   String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 						   String mobilePhone, String address1, String address2, String city, String state, String zipCode,
@@ -150,7 +153,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		if(_userName.length() > 16 || _userName.length() < 4 ) {
 			throw new UserNameException("Username must have between 4 and 16 characters.");
 		}
-		if(password1.length() > 6) {
+		if(password1.length() < 6) {
 			throw new PasswordException("Email field must have at least 6 characters.");
 		}
 		if(!Validator.isNull(homePhone) && homePhone.length() != 10) {
@@ -170,10 +173,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		if(!Validator.isAlphanumericName(lastName)) {
 			throw new LastNameException("Last name field must have only alphanumeric characters.");
 		}
-		if(!Validator.isAlphanumericName(emailAddress)) {
-			throw new EmailException("Email field must have only alphanumeric characters.");
+		if(!Validator.isEmailAddress(emailAddress)) {
+			throw new EmailException("Email field not valid.");
 		}
-		if(!Validator.isAlphanumericName(lastName)) {
+		if(!Validator.isAlphanumericName(_userName)) {
 			throw new UserNameException("Username field must have only alphanumeric characters.");
 		}
 		if(!Validator.isDigit(homePhone)) {
