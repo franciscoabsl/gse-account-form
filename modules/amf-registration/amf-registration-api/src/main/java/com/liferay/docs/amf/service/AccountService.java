@@ -26,6 +26,8 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import java.text.ParseException;
+
 import java.util.Date;
 import java.util.List;
 
@@ -62,7 +64,7 @@ public interface AccountService extends BaseService {
 			String state, String zipCode, String securityQuestion,
 			String securityAnswer, boolean termsOfUse,
 			ServiceContext serviceContext)
-		throws PortalException;
+		throws ParseException, PortalException;
 
 	public Account deleteAccountById(long accountId)
 		throws NoSuchAccountException;

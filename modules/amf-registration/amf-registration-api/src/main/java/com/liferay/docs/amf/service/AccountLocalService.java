@@ -15,6 +15,7 @@
 package com.liferay.docs.amf.service;
 
 import com.liferay.docs.amf.exception.*;
+import com.liferay.docs.amf.exception.NoSuchAccountException;
 import com.liferay.docs.amf.model.Account;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
@@ -37,6 +38,10 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.io.Serializable;
+
+import java.text.ParseException;
+
+import java.time.*;
 
 import java.util.Date;
 import java.util.List;
@@ -88,7 +93,7 @@ public interface AccountLocalService
 			String state, String zipCode, String securityQuestion,
 			String securityAnswer, boolean termsOfUse,
 			ServiceContext serviceContext)
-		throws PortalException;
+		throws ParseException, PortalException;
 
 	/**
 	 * Creates a new account with the primary key. Does not add the account to the database.
@@ -348,23 +353,6 @@ public interface AccountLocalService
 			String mobilePhone, String address1, String address2, String city,
 			String state, String zipCode, String securityQuestion,
 			String securityAnswer)
-		throws PortalException;
-
-	public void validate(
-			String firstName, String lastName, String emailAddress,
-			String _userName, String gender, Date birthday, String password1,
-			String confirmPassword, String homePhone, String mobilePhone,
-			String address1, String address2, String city, String state,
-			String zipCode, String securityQuestion, String securityAnswer)
-		throws PortalException;
-
-	public void validate(
-			String firstName, String lastName, String emailAddress,
-			String _userName, String gender, Date birthday, String password1,
-			String confirmPassword, String homePhone, String mobilePhone,
-			String address1, String address2, String city, String state,
-			String zipCode, String securityQuestion, String securityAnswer,
-			boolean termsOfUse)
 		throws PortalException;
 
 }

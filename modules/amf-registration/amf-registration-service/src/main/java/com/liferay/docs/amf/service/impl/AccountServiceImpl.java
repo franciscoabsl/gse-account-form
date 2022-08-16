@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import org.osgi.service.component.annotations.Component;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AccountServiceImpl extends AccountServiceBaseImpl {
 							  String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 							  String mobilePhone, String address1, String address2, String city, String state, String zipCode,
 							  String securityQuestion, String securityAnswer, boolean termsOfUse, ServiceContext serviceContext
-	) throws PortalException {
+	) throws PortalException, ParseException {
 		return accountLocalService.addAccount(groupId, firstName, lastName, emailAddress, _userName,
 				gender, birthday, password1, confirmPassword, homePhone,
 				mobilePhone, address1, address2, city, state, zipCode,

@@ -43,7 +43,8 @@ public class AccountServiceWrapper
 			String address2, String city, String state, String zipCode,
 			String securityQuestion, String securityAnswer, boolean termsOfUse,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.text.ParseException {
 
 		return _accountService.addAccount(
 			groupId, firstName, lastName, emailAddress, _userName, gender,

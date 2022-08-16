@@ -59,7 +59,8 @@ public class AccountServiceHttp {
 			String zipCode, String securityQuestion, String securityAnswer,
 			boolean termsOfUse,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   java.text.ParseException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -84,6 +85,10 @@ public class AccountServiceHttp {
 
 					throw (com.liferay.portal.kernel.exception.PortalException)
 						exception;
+				}
+
+				if (exception instanceof java.text.ParseException) {
+					throw (java.text.ParseException)exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(

@@ -46,7 +46,7 @@ public class AccountServiceUtil {
 			String address2, String city, String state, String zipCode,
 			String securityQuestion, String securityAnswer, boolean termsOfUse,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
+		throws java.text.ParseException, PortalException {
 
 		return getService().addAccount(
 			groupId, firstName, lastName, emailAddress, _userName, gender,
