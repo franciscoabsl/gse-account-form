@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="com.liferay.docs.amf">
+	<namespace>AMF</namespace>
+	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+	<entity local-service="true" name="Account" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="accountId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="firstName" type="String" />
+		<column name="lastName" type="String" />
+		<column name="emailAddress" type="String" />
+		<column name="_userName" type="String" />
+		<column name="gender" type="String" />
+		<column name="birthday" type="Date" />
+		<column name="password1" type="String" />
+		<column name="confirmPassword" type="String" />
+		<column name="homePhone" type="String" />
+		<column name="mobilePhone" type="String" />
+		<column name="address1" type="String" />
+		<column name="address2" type="String" />
+		<column name="city" type="String" />
+		<column name="state" type="String" />
+		<column name="zipCode" type="String" />
+		<column name="securityQuestion" type="String" />
+		<column name="securityAnswer" type="String" />
+		<column name="termsOfUse" type="boolean" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="firstName" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="UserName" return-type="Account">
+			<finder-column name="_userName" />
+		</finder>
+
+		<!-- References -->
+
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+	</entity>
+	<exceptions>
+		<exception>FirstName</exception>
+		<exception>LastName</exception>
+		<exception>Email</exception>
+		<exception>UserName</exception>
+		<exception>Gender</exception>
+		<exception>Birthday</exception>
+		<exception>Password</exception>
+		<exception>ConfirmPassword</exception>
+		<exception>HomePhone</exception>
+		<exception>MobilePhone</exception>
+		<exception>Address</exception>
+		<exception>City</exception>
+		<exception>State</exception>
+		<exception>ZipCode</exception>
+		<exception>SecurityQuestion</exception>
+		<exception>SecurityAnswer</exception>
+		<exception>TermsOfUse</exception>
+	</exceptions>
+</service-builder>
