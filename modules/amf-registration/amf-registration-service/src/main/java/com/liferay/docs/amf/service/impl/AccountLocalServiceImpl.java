@@ -19,17 +19,23 @@ import com.liferay.docs.amf.exception.*;
 import com.liferay.docs.amf.model.Account;
 import com.liferay.docs.amf.service.base.AccountLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
-
+import com.liferay.docs.amf.exception.NoSuchAccountException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.temporal.Temporal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -47,9 +53,9 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 							  String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 							  String mobilePhone, String address1, String address2, String city, String state, String zipCode,
 							  String securityQuestion, String securityAnswer, boolean termsOfUse, ServiceContext serviceContext
-								) throws PortalException {
+								) throws PortalException, ParseException {
 
-		validate(firstName, lastName, emailAddress, _userName, gender, birthday, password1, confirmPassword, homePhone,
+		_validate(firstName, lastName, emailAddress, _userName, gender, birthday, password1, confirmPassword, homePhone,
 				mobilePhone, address1, address2, city, state, zipCode, securityQuestion, securityAnswer, termsOfUse);
 
 
@@ -74,7 +80,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		account.setEmailAddress(emailAddress);
 		account.set_userName(_userName);
 		account.setGender(gender);
-		account.setBirthday(birthday);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
+		account.setBirthday(sdf.parse(sdf.format(birthday)));
+
 		account.setPassword1(password1);
 		account.setConfirmPassword(confirmPassword);
 		account.setHomePhone(homePhone);
@@ -96,7 +105,7 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 							  String mobilePhone, String address1, String address2, String city, String state, String zipCode,
 							  String securityQuestion, String securityAnswer) throws PortalException {
 
-		validate(firstName, lastName, emailAddress, _userName, gender, birthday, password1, confirmPassword, homePhone,
+		_validate(firstName, lastName, emailAddress, _userName, gender, birthday, password1, confirmPassword, homePhone,
 				mobilePhone, address1, address2, city, state, zipCode, securityQuestion, securityAnswer);
 
 		// Create account
@@ -139,8 +148,8 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		return accountPersistence.remove(accountId);
 	}
 
-	@Override
-	public void validate(String firstName, String lastName, String emailAddress, String _userName,
+
+	private void _validate(String firstName, String lastName, String emailAddress, String _userName,
 						   String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 						   String mobilePhone, String address1, String address2, String city, String state, String zipCode,
 						   String securityQuestion, String securityAnswer, boolean termsOfUse) throws PortalException {
@@ -205,10 +214,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		if(password1.length() < 6) {
 			throw new PasswordException("Password field must have at least 6 characters.");
 		}
-		if(!Validator.isNull(homePhone) && homePhone.length() != 10) {
+		if(Validator.isNotNull(homePhone) && homePhone.length() != 10) {
 			throw new HomePhoneException("Home Phone field must have 10 digits.");
 		}
-		if(!Validator.isNull(mobilePhone) && mobilePhone.length() != 10) {
+		if(Validator.isNotNull(mobilePhone) && mobilePhone.length() != 10) {
 			throw new HomePhoneException("Mobile Phone field must have 10 digits.");
 		}
 		if(zipCode.length() != 5) {
@@ -228,16 +237,16 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		if(!Validator.isAlphanumericName(_userName)) {
 			throw new UserNameException("Username field must have only alphanumeric characters.");
 		}
-		if(!Validator.isNull(homePhone) && !Validator.isDigit(homePhone)) {
+		if(Validator.isNotNull(homePhone) && !Validator.isDigit(homePhone)) {
 			throw new HomePhoneException("Home Phone field must have only digits.");
 		}
-		if(!Validator.isNull(mobilePhone) && !Validator.isDigit(mobilePhone)) {
+		if(Validator.isNotNull(mobilePhone) && !Validator.isDigit(mobilePhone)) {
 			throw new MobilePhoneException("Mobile Phone field must have only digits.");
 		}
 		if(!Validator.isAlphanumericName(address1)) {
 			throw new AddressException("Address field must have only alphanumeric characters.");
 		}
-		if(!Validator.isNull(address2) && !Validator.isAlphanumericName(address2)) {
+		if(Validator.isNotNull(address2) && !Validator.isAlphanumericName(address2)) {
 			throw new AddressException("Address field must have only alphanumeric characters.");
 		}
 		if(!Validator.isAlphanumericName(city)) {
@@ -248,7 +257,6 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		}
 
 		// Other Validations
-		//TODO - password (must contain one uppercase, one number, one special character)
 		//TODO - birthday (must be at least 13 to register)
 		//TODO - state (must use Liferay's State code)
 
@@ -258,14 +266,16 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		if(!termsOfUse) {
 			throw new TermsOfUseException("You must accept the Terms of Use.");
 		}
-
-		if(!Validator.isNull(accountPersistence.findByUserName(_userName))) {
-
+		if(!Validator.isNull(accountPersistence.fetchByUserName(_userName))) {
+			throw new UserNameException("Username already in use, choose a different one.");
+		}
+		if(!_validatePassword(password1)) {
+			throw new PasswordException("Password must contain one uppercase, one number, one special character.");
 		}
 
 	}
-	@Override
-	public void validate(String firstName, String lastName, String emailAddress, String _userName,
+
+	private void _validate(String firstName, String lastName, String emailAddress, String _userName,
 						   String gender, Date birthday, String password1, String confirmPassword, String homePhone,
 						   String mobilePhone, String address1, String address2, String city, String state, String zipCode,
 						   String securityQuestion, String securityAnswer) throws PortalException {
@@ -330,10 +340,10 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		if(password1.length() < 6) {
 			throw new PasswordException("Password field must have at least 6 characters.");
 		}
-		if(!Validator.isNull(homePhone) && homePhone.length() != 10) {
+		if(Validator.isNotNull(homePhone) && homePhone.length() != 10) {
 			throw new HomePhoneException("Home Phone field must have 10 digits.");
 		}
-		if(!Validator.isNull(mobilePhone) && mobilePhone.length() != 10) {
+		if(Validator.isNotNull(mobilePhone) && mobilePhone.length() != 10) {
 			throw new HomePhoneException("Mobile Phone field must have 10 digits.");
 		}
 		if(zipCode.length() != 5) {
@@ -353,16 +363,16 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		if(!Validator.isAlphanumericName(_userName)) {
 			throw new UserNameException("Username field must have only alphanumeric characters.");
 		}
-		if(!Validator.isNull(homePhone) && !Validator.isDigit(homePhone)) {
+		if(Validator.isNotNull(homePhone) && !Validator.isDigit(homePhone)) {
 			throw new HomePhoneException("Home Phone field must have only digits.");
 		}
-		if(!Validator.isNull(mobilePhone) && !Validator.isDigit(mobilePhone)) {
+		if(Validator.isNotNull(mobilePhone) && !Validator.isDigit(mobilePhone)) {
 			throw new MobilePhoneException("Mobile Phone field must have only digits.");
 		}
 		if(!Validator.isAlphanumericName(address1)) {
 			throw new AddressException("Address field must have only alphanumeric characters.");
 		}
-		if(!Validator.isNull(address2) && !Validator.isAlphanumericName(address2)) {
+		if(Validator.isNotNull(address2) && !Validator.isAlphanumericName(address2)) {
 			throw new AddressException("Address field must have only alphanumeric characters.");
 		}
 		if(!Validator.isAlphanumericName(city)) {
@@ -373,13 +383,44 @@ public class AccountLocalServiceImpl extends AccountLocalServiceBaseImpl {
 		}
 
 		// Other Validations
-		//TODO - password (must contain one uppercase, one number, one special character)
 		//TODO - birthday (must be at least 13 to register)
 		//TODO - state (must use Liferay's State code)
 
 		if(!password1.equals(confirmPassword)) {
 			throw new PasswordException("Passwords must match.");
 		}
+		if(!Validator.isNull(accountPersistence.fetchByUserName(_userName))) {
+			throw new UserNameException("Username already in use, choose a different one.");
+		}
+		if(!_validatePassword(password1)) {
+			throw new PasswordException("Password must contain one uppercase, one number, one special character.");
+		}
+	}
+
+	private static boolean _validatePassword(String password) {
+		char ch;
+		boolean capitalFlag = false;
+		boolean lowerCaseFlag = false;
+		boolean numberFlag = false;
+
+		if (Validator.isAlphanumericName(password)) {
+			return false;
+		}
+		for(int i = 0; i < password.length(); i++) {
+			ch = password.charAt(i);
+
+			if( Character.isDigit(ch)) {
+				numberFlag = true;
+			} else if (Character.isUpperCase(ch)) {
+				capitalFlag = true;
+			} else if (Character.isLowerCase(ch)) {
+				lowerCaseFlag = true;
+			}
+			if(numberFlag && capitalFlag && lowerCaseFlag){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Reference
